@@ -1,0 +1,20 @@
+# Atualizar repositórios e instalar pacotes essenciais
+sudo apt update
+sudo apt install xorg fluxbox x2goclient python3-tk xterm curl net-tools nano -y
+
+# Configurar Teclado ABNT2
+# Edite o arquivo: sudo nano /etc/default/keyboard
+# Deixe assim meu amigo:
+# XKBLAYOUT="br"
+# XKBVARIANT=""
+# XKBMODEL="pc105"
+
+# Aplicar configuração de teclado, a imagem do linux não pega nada
+sudo udevadm trigger --subsystem-match=input --action=change
+
+# Dar permissão de execução ao script de internet
+chmod +x /home/aluno/internet.sh
+
+# Gerar chave SSH para conectar no servidor sem senha
+ssh-keygen -t rsa
+# Pressione Enter em tudo hehehe
