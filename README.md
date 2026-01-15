@@ -4,7 +4,7 @@
 >
 > **PROIBIDA A ENTRADA DE PESSOAS CHAMADAS "FÁBIO" NESTE REPOSITÓRIO.**
 >
-> Este código é um backup de emergência criado após o "Grande Reset de 2026", quando 3 meses de trabalho foram deletados acidentalmente pela equipe de TI (vulgo Fábio) que confundiu nossa TV Box de produção com sucata de teste.
+> Este código é um backup de emergência criado após as "férias lindas de 2026", quando 3 meses de trabalho foram deletados acidentalmente pela equipe de TI (vulgo Fábio) que confundiu nossa TV Box de produção com sucata de teste.
 >
 > **Se você é Fábio: POR FAVOR, NÃO FORMATE NADA AQUI.**
 
@@ -17,7 +17,7 @@ Este projeto visa transformar TV Boxes Android obsoletas (chipset Rockchip RK322
 - **Autenticação de Rede:** Script Bash que dialoga com o Firewall Palo Alto do IFRN para liberar a internet via curl.
 - **Conexão Remota:** Cliente X2Go integrado para acesso à área de trabalho XFCE no servidor.
 
-## Como Recuperar (Caso o Fábio formate de novo)
+## Como Recuperar (Caso Fábio formate de novo)
 1. Instale a imagem Armbian Minimal.
 2. Rode os comandos do arquivo `setup_commands.txt`.
 3. Copie os scripts `internet.sh` e `interface_ifrn.py` para a pasta `/home/aluno/`.
