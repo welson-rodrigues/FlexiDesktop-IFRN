@@ -1,5 +1,5 @@
 # arquivo ~/.fluxbox/startup
-# IMPORTANTE: Tem que ser ANTES da linha "exec fluxbox"
+# Lembrar a welson que tem que ser antes da linha "exec fluxbox" pra nao da erro de novo
 
 # Proteção contra uso não autorizado
 python3 /home/aluno/interface_ifrn.py &
