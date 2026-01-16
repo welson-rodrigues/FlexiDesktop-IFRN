@@ -4,15 +4,13 @@ mkdir -p /home/aluno/.fluxbox
 # Cria e abre o arquivo
 nano /home/aluno/.fluxbox/startup
 
-# Vai ter que colocar isso aqui dentro caso não tenha nada
-
 #!/bin/sh
 
-# Teclado BR
+# Configura teclado ABNT2
 setxkbmap -model pc105 -layout br &
 
-# Interface do IFRN
-python3 /home/aluno/interface_ifrn.py &
+# Inicia o Gerente do Sistema
+/home/aluno/sistema.sh &
 
 # Mantém o Fluxbox rodando
 exec fluxbox
