@@ -1,31 +1,31 @@
 #!/bin/bash
-############################################################
-#  Script de Autenticação Palo Alto (IFRN)  		   #
-#  Autor: CTI do campus São Gonçalo do Amarante            #
-#  Modificado para Automação (TCC TV Box)                  # 
-############################################################
 
-# Recebe usuário e senha vindos da interface Python
-username=$1
-password=$2
+# Configurações de Tela
+export DISPLAY=:0
+export XAUTHORITY=/home/aluno/.Xauthority
 
-# Verifica se os dados chegaram
-if [ -z "$username" ] || [ -z "$password" ]; then
-    echo "Erro: Credenciais não fornecidas."
-    exit 1
-fi
+# Loop Infinito (Kiosk Mode)
+while true; do
 
-echo "Tentando autenticar usuário $username no Firewall..."
+    # Abre o Python (Login)
+    python3 /home/aluno/interface_ifrn.py
 
-# Requisição POST para o gateway do IFRN (Simula o login via navegador)
-# A flag -k ignora erros de certificado SSL (comum na rede interna)
-curl -k -d "escapeUser=$username&user=$username&passwd=$password&ok=Login" -X POST "https://autenticacao-cn.ifrn.local:6082/php/uid.php?vsys=1&rule=0"
+    # Se logou com sucesso (exit 0)...
+    if [ $? -eq 0 ]; then
+        
+        echo "Autenticado. Iniciando X2Go..."
+        sleep 1
+        
+        # Abre o X2Go
+        # O nome da sessão deve ser igual ao salvo no x2goclient
+        /usr/bin/x2goclient --session="Servidor_Lindo" --thinclient --no-menu --hide > /tmp/x2go_log.txt 2>&1
+        
+        # Quando o X2Go fecha, reinicia a TV Box (Limpeza)
+        sudo reboot
+        exit
+    else
+        # Se cancelou o login, espera e tenta de novo
+        sleep 2
+    fi
 
-# Verifica se liberou a internet pingando o Google
-if ping -c 1 8.8.8.8 > /dev/null; then
-    echo "SUCESSO: Internet Liberada! Fábio não conseguiu nos parar."
-    exit 0
-else
-    echo "FALHA: Sem conexão. Verifique a senha ou o cabo de rede."
-    exit 1
-fi
+done
