@@ -1,5 +1,18 @@
-# arquivo ~/.fluxbox/startup
-# Lembrar a welson que tem que ser antes da linha "exec fluxbox" pra nao da erro de novo
+# Criar a pasta (se ela não existir)
+mkdir -p /home/aluno/.fluxbox
 
-# Proteção contra uso não autorizado
+# Cria e abre o arquivo
+nano /home/aluno/.fluxbox/startup
+
+# Vai ter que colocar isso aqui dentro caso não tenha nada
+
+#!/bin/sh
+
+# Teclado BR
+setxkbmap -model pc105 -layout br &
+
+# Interface do IFRN
 python3 /home/aluno/interface_ifrn.py &
+
+# Mantém o Fluxbox rodando
+exec fluxbox
