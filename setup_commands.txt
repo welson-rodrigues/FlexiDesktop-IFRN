@@ -13,8 +13,9 @@ sudo apt install xorg fluxbox x2goclient python3-tk xterm curl net-tools nano -y
 sudo udevadm trigger --subsystem-match=input --action=change
 
 # Dar permissão de execução ao script de internet
-chmod +x /home/aluno/internet.sh
+chmod +x /home/aluno/sistema.sh
 
 # Gerar chave SSH para conectar no servidor sem senha
 ssh-keygen -t rsa
+ssh-copy-id usuario@IPDoServidorDeMoroni
 # Pressione Enter em tudo hehehe
