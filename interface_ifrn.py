@@ -1,71 +1,74 @@
 import tkinter as tk
+from tkinter import messagebox
 import subprocess
-import os
+import sys
+import time
 
-# Funções do Sistema
+# CONECTAR
 def conectar():
     matricula = entry_matricula.get()
     senha = entry_senha.get()
     
     if matricula and senha:
-        label_status.config(text="Autenticando no Palo Alto...", fg="blue")
+        label_status.config(text="Autenticando...", fg="blue")
         root.update()
         
-        # Chama o script internet.sh passando os dados
+        # Chama o script de internet
         resultado = subprocess.run(
             ["/home/aluno/internet.sh", matricula, senha], 
-            capture_output=True, 
-            text=True
+            capture_output=True, text=True
         )
         
         if resultado.returncode == 0:
-            label_status.config(text="Sucesso! Iniciando X2Go...", fg="green")
+            label_status.config(text="Sucesso! Entrando...", fg="green")
             root.update()
-            # Abre o cliente remoto e libera o sistema
-            subprocess.Popen(["x2goclient"])
+            time.sleep(1)
+            # Fecha a janela e retorna código 0 (Sucesso) para o bash
+            root.destroy()
+            sys.exit(0) 
         else:
-            label_status.config(text="Erro de Login. Tente novamente.", fg="red")
-            
+            label_status.config(text="Erro de Login ou Rede.", fg="red")
+            entry_senha.delete(0, tk.END)
     else:
-        label_status.config(text="Preencha todos os campos!", fg="red")
+        label_status.config(text="Preencha tudo.", fg="orange")
 
+# DESLIGAR
 def desligar():
-    # Desliga a TV Box com segurança
-    os.system("poweroff")
+    if messagebox.askyesno("Desligar", "Desligar a TV Box?"):
+        subprocess.run(["sudo", "/sbin/poweroff"])
 
-# Interface Gráfica (Tkinter)
+# Interface Gráfica
 root = tk.Tk()
-root.attributes('-fullscreen', True) # Modo Kiosk (Tela Cheia)
-root.configure(bg="#f0f0f0") 
+root.attributes('-fullscreen', True)
+root.configure(bg="#f5f5f5")
 
 # Cabeçalho
-label_titulo = tk.Label(root, text="IFRN - Laboratório Thin Client", font=("Arial", 30, "bold"), bg="#f0f0f0", fg="#2E7D32")
-label_titulo.pack(pady=(80, 20))
+tk.Label(root, text="Login IFRN", font=("Arial", 40, "bold"), bg="#f5f5f5", fg="#333").pack(pady=(60, 20))
+tk.Label(root, text="Autenticação de Rede", font=("Arial", 16), bg="#f5f5f5", fg="#666").pack(pady=(0, 40))
 
-label_subtitulo = tk.Label(root, text="Projeto de Acesso Remoto Linux", font=("Arial", 12), bg="#f0f0f0", fg="#555")
-label_subtitulo.pack(pady=(0, 40))
+# Campos
+frame = tk.Frame(root, bg="#f5f5f5")
+frame.pack()
 
-# Formulário
-frame_form = tk.Frame(root, bg="#f0f0f0")
-frame_form.pack()
+tk.Label(frame, text="Matrícula:", font=("Arial", 14), bg="#f5f5f5").pack(anchor="w")
+entry_matricula = tk.Entry(frame, font=("Arial", 20), width=20, bd=2, relief="groove")
+entry_matricula.pack(pady=(0, 20))
 
-tk.Label(frame_form, text="Matrícula:", font=("Arial", 14), bg="#f0f0f0").pack(anchor="w")
-entry_matricula = tk.Entry(frame_form, font=("Arial", 18), width=25)
-entry_matricula.pack(pady=5)
-
-tk.Label(frame_form, text="Senha:", font=("Arial", 14), bg="#f0f0f0").pack(anchor="w", pady=(10, 0))
-entry_senha = tk.Entry(frame_form, font=("Arial", 18), width=25, show="*")
-entry_senha.pack(pady=5)
+tk.Label(frame, text="Senha:", font=("Arial", 14), bg="#f5f5f5").pack(anchor="w")
+entry_senha = tk.Entry(frame, font=("Arial", 20), width=20, bd=2, relief="groove", show="*")
+entry_senha.pack(pady=(0, 30))
 
 # Botões
-btn_conectar = tk.Button(root, text="CONECTAR", font=("Arial", 16, "bold"), bg="#2E7D32", fg="white", command=conectar)
-btn_conectar.pack(pady=40, ipadx=40, ipady=10)
+tk.Button(root, text="CONECTAR", font=("Arial", 18, "bold"), bg="#2E7D32", fg="white", 
+          command=conectar, height=2, width=15).pack(pady=10)
 
-btn_desligar = tk.Button(root, text="Desligar TV Box", font=("Arial", 12), bg="#c62828", fg="white", command=desligar)
-btn_desligar.pack(side="bottom", pady=30)
+label_status = tk.Label(root, text="", font=("Arial", 14), bg="#f5f5f5")
+label_status.pack(pady=20)
 
-# Mensagens de Erro/Status
-label_status = tk.Label(root, text="", font=("Arial", 14, "bold"), bg="#f0f0f0")
-label_status.pack(pady=10)
+tk.Button(root, text="DESLIGAR", font=("Arial", 12, "bold"), bg="#d32f2f", fg="white", 
+          command=desligar).place(relx=0.95, rely=0.95, anchor="se")
 
 root.mainloop()
+
+# Se fechar com Alt+F4, retorna erro
+sys.exit(1)
