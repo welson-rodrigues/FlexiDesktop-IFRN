@@ -9,7 +9,7 @@
 > **Se você é Fábio: POR FAVOR, NÃO FORMATE NADA AQUI.**
 
 ## Sobre o Projeto
-Este projeto visa transformar TV Boxes Android obsoletas (chipset Rockchip RK3229) em **Thin Clients Linux** de alto desempenho e baixo custo para laboratórios do IFRN. O sistema utiliza uma distribuição Linux minimalista e conecta-se a um servidor central via protocolo **X2Go (NX)**.
+Este projeto visa transformar TV Boxes Android obsoletas (chipset Rockchip RK3229) em **Thin Clients Linux** de alto desempenho e baixo custo para laboratórios do IFRN. O sistema utiliza uma distribuição Linux minimalista e conecta-se a um servidor central via protocolo **X2Go (NX)**..
 
 ## Funcionalidades
 - **Sistema Base:** Armbian (Debian Bullseye) Minimal (Kernel 4.4 Legacy).
