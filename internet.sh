@@ -1,31 +1,19 @@
 #!/bin/bash
 
-# Configurações de Tela
-export DISPLAY=:0
-export XAUTHORITY=/home/aluno/.Xauthority
+username=$1
+password=$2
 
-# Loop Infinito (Kiosk Mode)
-while true; do
+if [ -z "$username" ] || [ -z "$password" ]; then
+    echo "Erro: Credenciais vazias."
+    exit 1
+fi
 
-    # Abre o Python (Login)
-    python3 /home/aluno/interface_ifrn.py
+# Curl silencioso (-s) ignorando SSL (-k)
+curl -k -s -d "escapeUser=$username&user=$username&passwd=$password&ok=Login" -X POST "https://autenticacao-cn.ifrn.local:6082/php/uid.php?vsys=1&rule=0" > /dev/null
 
-    # Se logou com sucesso (exit 0)...
-    if [ $? -eq 0 ]; then
-        
-        echo "Autenticado. Iniciando X2Go..."
-        sleep 1
-        
-        # Abre o X2Go
-        # O nome da sessão deve ser igual ao salvo no x2goclient
-        /usr/bin/x2goclient --session="Servidor_Lindo" --thinclient --no-menu --hide > /tmp/x2go_log.txt 2>&1
-        
-        # Quando o X2Go fecha, reinicia a TV Box (Limpeza)
-        sudo reboot
-        exit
-    else
-        # Se cancelou o login, espera e tenta de novo
-        sleep 2
-    fi
-
-done
+# Teste de conexão
+if ping -c 1 8.8.8.8 > /dev/null; then
+    exit 0 # Sucesso
+else
+    exit 1 # Falha
+fi
