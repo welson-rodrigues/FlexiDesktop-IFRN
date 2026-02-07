@@ -4,7 +4,7 @@
 >
 > **PROIBIDA A ENTRADA DE PESSOAS CHAMADAS "FÁBIO" NESTE REPOSITÓRIO.**
 >
-> Este código é um backup de emergência criado após as "férias lindas de 2026", quando 3 meses de trabalho foram deletados acidentalmente pela equipe de TI (vulgo Fábio) que confundiu nossa TV Box de produção com sucata de teste.
+> Este código é um backup de emergência criado após as "férias lindas de 2026", quando 3 meses de trabalho foram deletados acidentalmente pela equipe de TI (Fábio) que confundiu nossa TV Box de produção com sucata de teste.
 >
 > **Se você é Fábio: POR FAVOR, NÃO FORMATE NADA AQUI.**
 
